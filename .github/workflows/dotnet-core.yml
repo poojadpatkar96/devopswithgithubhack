@@ -1,45 +1,29 @@
 name: Build and deploy ASP.Net Core app to Azure Web App - policyconnectdevtools
-
-
- 
-
 on:
   push:
     branches:
       - master
-
  
-
 jobs:
   build-and-deploy:
     runs-on: windows-latest
-
  
-
     steps:
     - uses: actions/checkout@master
-
- 
 
     - name: Set up .NET Core
       uses: actions/setup-dotnet@v1
       with:
         dotnet-version: '3.1.102'
-
  
-
     - name: Build with dotnet
       working-directory: 'src/'
       run: dotnet build --configuration Release
-
  
-
     - name: dotnet publish
       working-directory: 'src/'
       run: dotnet publish -c Release -o ${{env.DOTNET_ROOT}}/myapp
-
  
-
     - name: Deploy to Azure Web App
       uses: azure/webapps-deploy@v2
       with:
